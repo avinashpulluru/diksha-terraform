@@ -8,11 +8,6 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  bkstrgrg: 'storage-rg'
-  bkstrg: 'pocdikshatfstate'
-  bkcontainer: 'tfstate'
-  bkstrgkey: 'devpipeline.terraform.tfstate'
 stages:
   - stage: tfvalidate
     jobs:
@@ -24,17 +19,15 @@ stages:
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTaskV3@3
-          displayName: init
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'diksha-terraform'
+            backendServiceArm: 'Azure Pass - Sponsorship(0683d0f3-16e7-4c33-bb65-427c23da86aa)'
             backendAzureRmResourceGroupName: 'storage-rg'
             backendAzureRmStorageAccountName: 'pocdikshatfstate'
             backendAzureRmContainerName: 'tfstate'
             backendAzureRmKey: 'terraform.tfstate'
         - task: TerraformTaskV3@3
-          displayName: validate
           inputs:
             provider: 'azurerm'
             command: 'validate'
@@ -48,26 +41,23 @@ stages:
             inputs:
               terraformVersion: 'latest'
           - task: TerraformTaskV3@3
-            displayName: init
             inputs:
               provider: 'azurerm'
               command: 'init'
-              backendServiceArm: 'diksha-terraform'
+              backendServiceArm: 'Azure Pass - Sponsorship(0683d0f3-16e7-4c33-bb65-427c23da86aa)'
               backendAzureRmResourceGroupName: 'storage-rg'
               backendAzureRmStorageAccountName: 'pocdikshatfstate'
               backendAzureRmContainerName: 'tfstate'
               backendAzureRmKey: 'terraform.tfstate'
           - task: TerraformTaskV3@3
-            displayName: plan
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              environmentServiceNameAzureRM: 'diksha-terraform'
+              environmentServiceNameAzureRM: 'Azure Pass - Sponsorship(0683d0f3-16e7-4c33-bb65-427c23da86aa)'
           - task: TerraformTaskV3@3
-            displayName: apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              environmentServiceNameAzureRM: 'diksha-terraform'
+              environmentServiceNameAzureRM: 'Azure Pass - Sponsorship(0683d0f3-16e7-4c33-bb65-427c23da86aa)'
         
 
