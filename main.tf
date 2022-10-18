@@ -9,10 +9,10 @@ resource "azurerm_resource_group" "aks-rg" {
   }
 
 resource "azurerm_virtual_network" "vvnet" {
-  name                = "vnet"
+  name                = "vnet-01"
   location            = azurerm_resource_group.aks-rg.location
   resource_group_name = azurerm_resource_group.aks-rg.name
-  address_space       = ["10.1.0.0/16"]
+  address_space       = ["10.2.0.0/16"]
   
 }
 
@@ -20,7 +20,7 @@ resource "azurerm_subnet" "internal1" {
   name                 = "internal"
   virtual_network_name = azurerm_virtual_network.vvnet.name
   resource_group_name  = azurerm_resource_group.aks-rg.name
-  address_prefixes     = ["10.1.0.0/20"]
+  address_prefixes     = ["10.2.0.0/20"]
 }
 
 /*resource "azurerm_route_table" "aksrt" {
@@ -55,7 +55,7 @@ resource "azurerm_container_registry" "acr" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "aks1"
+  name                = "diksha-poc"
   location            = azurerm_resource_group.aks-rg.location
   resource_group_name = azurerm_resource_group.aks-rg.name
   dns_prefix          = "exampleaks1"
